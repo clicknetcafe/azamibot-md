@@ -1,7 +1,7 @@
 let handler = async (m, { conn, text }) => {
     if (!text) throw 'Siapa yang mau di banned?'
     let who
-    if (m.isGroup) who = m.mentionedJid[0]
+    if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0]
     else who = m.chat
     if (!who) throw 'Tag salah satu lah'
     let users = global.db.data.users
@@ -11,7 +11,7 @@ let handler = async (m, { conn, text }) => {
 
 handler.menugroup = ['ban @tag']
 handler.tagsgroup = ['owner']
-handler.command = /^ban$/i
+handler.command = /^(ban(user)?)$/i
 
 handler.owner = true
 
