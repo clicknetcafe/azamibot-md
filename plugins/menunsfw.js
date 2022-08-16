@@ -36,7 +36,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		let chat = global.db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)
 		let nais
-		if (m.isGroup && chat.nsfw == false) {
+		if (m.isGroup && !chat.nsfw) {
 			nais = fs.readFileSync(`./media/picbot/nsfw/nsfwoff.jpg`)
 		} else {
 			nais = fs.readFileSync(`./media/picbot/nsfw/nsfw_${meh}.jpg`)
