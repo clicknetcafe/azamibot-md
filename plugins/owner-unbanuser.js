@@ -4,9 +4,14 @@ let handler = async (m, { conn, text}) => {
     if (m.isGroup) who = m.mentionedJid[0]
     else who = m.chat
     if (!who) throw 'Tag salah satu lah'
-    let users = global.db.data.users
-    users[who].banned = false
-    conn.reply(m.chat, `berhasil unbanned`, m)
+    try {
+        let users = global.db.data.users
+        users[who].banned = false
+        conn.reply(m.chat, `berhasil unbanned`, m)
+    } catch (e) {
+        console.log(e)
+        m.reply(`User tidak ada dalam database.`)
+    }
 }
 
 handler.menugroup = ['ban @tag']
