@@ -13,7 +13,7 @@ global.packname = 'Azami x Byoru'
 global.author = 'Bot V5'
 
 //apikey
-global.api = 'belisendirilahanying'	// https://api.lolhuman.xyz/docs
+global.api = 'bukanitucuy14315195'	// https://api.lolhuman.xyz/docs
 global.bb = 'BetaBotz'				// https://betabotz-api.herokuapp.com/docs
 global.xco = 'xcoders'				// https://api-xcoders.xyz/docs
 global.yog = 'YogGanz'				// https://yog-apikey.herokuapp.com/docs
