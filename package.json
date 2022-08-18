@@ -1,7 +1,7 @@
 {
-	"name": "games-wabot",
-	"version": "0.9.86",
-	"description": "Customizable WhatsApp Bot",
+	"name": "azamibot-md",
+	"version": "6.0.0",
+	"description": "WhatsApp Bot - Recoded by Zerenity",
 	"main": "index.js",
 	"type": "module",
 	"directories": {
@@ -26,16 +26,16 @@
 		"MD",
 		"baileys-md"
 	],
-	"homepage": "https://github.com/BochilGaming/games-wabot",
+	"homepage": "https://github.com/clicknetcafe/azamibot-md",
 	"author": {
 		"name": "BochilGaming"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/BochilGaming/games-wabot.git"
+		"url": "git+https://github.com/clicknetcafe/azamibot-md.git"
 	},
 	"bugs": {
-		"url": "https://github.com/BochilGaming/games-wabot/issues"
+		"url": "https://github.com/clicknetcafe/azamibot-md/issues"
 	},
 	"license": "GPL-3.0-or-later",
 	"dependencies": {
@@ -101,7 +101,7 @@
 		"pdfkit": "^0.13.0",
 		"perf_hooks": "^0.0.1",
 		"pino": "^8.4.1",
-		"pino-pretty": "^9.0.0",
+		"pino-pretty": "^9.0.1",
 		"qrcode": "^1.5.1",
 		"qrcode-terminal": "^0.12.0",
 		"random-cat-img": "^1.0.3",
@@ -124,6 +124,7 @@
 		"url-regex-safe": "^3.0.0",
 		"xfarr-api": "^2.0.0",
 		"yargs": "^17.4.1",
+		"zip-a-folder": "^1.1.5",
 		"zs-extract": "^1.4.1"
 	},
 	"optionalDependencies": {

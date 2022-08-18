@@ -105,7 +105,7 @@ npm update
 * Download And Install ImageMagick [`Click Here`](https://imagemagick.org/script/download.php)
 
 ```bash
-git clone https://github.com/clicknetcafe/azamibot-md -b multi-device
+git clone https://github.com/clicknetcafe/azamibot-md
 cd azamibot-md
 npm install
 npm update
