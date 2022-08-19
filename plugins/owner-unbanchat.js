@@ -1,6 +1,16 @@
-let handler = async (m) => {
-    global.db.data.chats[m.chat].isBanned = false
-    m.reply('Bot dapat digunakan kembali.')
+let handler = async (m, { text }) => {
+	if (!text) {
+		global.db.data.chats[m.chat].isBanned = false
+		m.reply('Bot dapat digunakan kembali.')
+	} else {
+		try {
+			global.db.data.chats[`${text.includes('@') ? text : text + '@g.us'}`].isBanned = false
+			m.reply('Bot dapat digunakan kembali.')
+		} catch (e) {
+			console.log(e)
+			m.reply(`ID Grup tidak ada dalam database.`)
+		}
+	}
 }
 
 handler.menugroup = ['unbanchat']
