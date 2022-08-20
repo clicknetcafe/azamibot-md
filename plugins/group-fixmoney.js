@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     Number.prototype.noExponents = function() {
         var data = String(this).split(/[eE]/);

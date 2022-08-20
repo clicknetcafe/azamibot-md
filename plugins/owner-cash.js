@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text || isNaN(text)) throw `Masukkan nominal !\n\nContoh : *${usedPrefix + command} 10000*`
     let awal = global.db.data.users[m.sender].money

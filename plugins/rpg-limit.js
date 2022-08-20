@@ -1,8 +1,3 @@
-import { promises } from 'fs'
-import { join } from 'path'
-import { xpRange } from '../lib/levelling.js'
-import fs from 'fs'
-
 let handler = async (m, { conn, isPrems }) => {
 	let { limit } = global.db.data.users[m.sender]
 	let lemon

@@ -1,5 +1,4 @@
 import { cpus as _cpus, totalmem, freemem } from 'os'
-import util from 'util'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
 
@@ -24,10 +23,9 @@ let format = sizeFormatter({
 })
 
 let handler = async (m, { conn }) => {
+	const groups = Object.values(await conn.groupFetchAllParticipating())
 	const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
 	const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
-	const chats2 = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats && data.subject == '')
-	const groupsOut = chats2.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
 	const used = process.memoryUsage()
 	const cpus = _cpus().map(cpu => {
 		cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
@@ -62,9 +60,9 @@ Kecepatan Respon ${speed.toFixed(4)} detik
 Runtime :\n*${runtime(process.uptime())}*
 
 💬 Status :
-- *${groupsIn.length}* Group Chats
-- *${groupsIn.length - groupsOut.length}* Groups Joined
-- *${groupsOut.length}* Groups Left
+- *${groupsIn.length < groups.length ? groups.length : groupsIn.length}* Group Chats
+- *${groups.length}* Groups Joined
+- *${groupsIn.length < groups.length ? 0 : groupsIn.length - groups.length}* Groups Left
 - *${chats.length - groupsIn.length}* Personal Chats
 - *${chats.length}* Total Chats
 
@@ -73,6 +71,7 @@ ${cpus[0] ? `_${cpus[0].model.trim()} (${cpu.speed} MHZ)_\n` : ''}
 RAM: ${format(totalmem() - freemem())} / ${format(totalmem())}
 `.trim())
 }
+
 handler.menugroup = ['ping']
 handler.tagsgroup = ['group']
 

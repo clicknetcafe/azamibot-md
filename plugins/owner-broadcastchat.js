@@ -1,7 +1,4 @@
-import uploadImage from '../lib/uploadImage.js'
 import { randomBytes } from 'crypto'
-/*import imgbbUploader from 'imgbb-uploader'*/
-import fetch from 'node-fetch'
 
 function ranNumb(min = null, max = null) {
 	if (max !== null) {
@@ -14,19 +11,13 @@ function ranNumb(min = null, max = null) {
 }
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
+	let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && !jid.startsWith('212') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	let q = m.quoted ? m.quoted : m
-		let mime = (q.msg || q).mimetype || q.mediaType || ''
-		if (/image/g.test(mime) || /video/g.test(mime)) {
-			if (!text) throw `teks nya mana ?`
-			let img = await q.download?.()
-				/*let out = await uploadImage(img)
-				const options = { apiKey: global.imgbb, expiration: 3600, imageUrl: out}
-				let anu = await imgbbUploader(options)
-				let fimg = await fetch(anu.display_url)
-			if (!fimg.ok) throw 'Error Upload Imgbb'
-			let fimgb = Buffer.from(await fimg.arrayBuffer())*/
+    let mime = (q.msg || q).mimetype || q.mediaType || ''
+    if (/image/g.test(mime) || /video/g.test(mime)) {
+	    if (!text) throw `teks nya mana ?`
+    	let img = await q.download?.()
 		conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
 		let wkt
 		for (let id of chats) {
@@ -39,22 +30,22 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 				conn.sendButton(id, `_*「 BroadCast-Bot 」*_\n\n${text}`, packname + ' - ' + author, img, [
 					[`👥 Owner`, `.owner`],
 					[`🤖 All Menu`, `.allmenu`]
-				], m)
-				wkt = ranNumb(2000, 5500)
+				])
+				wkt = ranNumb(3000, 6000)
 				await delay(wkt)
 			} catch (e) {
 				console.log(e)
 			}
 		}
-		m.reply('Selesai Broadcast All Group Chat :)')
-		} else {
-				m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
-		}
+		m.reply('Selesai Broadcast All Private Chat :)')
+    } else {
+        m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
+    }
 }
 
-handler.menugroup = ['broadcastgroup'].map(v => v + ' <teks>')
+handler.menugroup = ['broadcastchat'].map(v => v + ' <teks>')
 handler.tagsgroup = ['owner']
-handler.command = /^((bc|broadcast)groups?|bcgc?)$/i
+handler.command = /^((bc|broadcast)chats?|bcc)$/i
 
 handler.owner = true
 

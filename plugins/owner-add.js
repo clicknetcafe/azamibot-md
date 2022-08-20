@@ -46,7 +46,9 @@ let handler = async (m, { conn, text, participants }) => {
         }
     } catch (e) {
         console.log(e)
-        m.reply(`Invalid phone number.`)
+        let tes = Object.values(await conn.groupInviteCode())
+        console.log(tes)
+        m.reply(`Invalid WhatsApp number.`)
     }
 }
 handler.menugroup = ['add']

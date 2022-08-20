@@ -1,7 +1,4 @@
 import fs from 'fs'
-import path from 'path'
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (m.isGroup) return m.reply(`[ private chat only ]`)
