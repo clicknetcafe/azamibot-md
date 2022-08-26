@@ -19,6 +19,7 @@ function padLead(num, size) {
 }
 
 let tagstextpro = {
+	'offi': 'textpro.me Official',
 	'search': 'Make Text Effect',
 }
 const defaultMenu = {

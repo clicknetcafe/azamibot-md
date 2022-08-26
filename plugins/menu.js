@@ -195,7 +195,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 				]
 				const listMessage = {
 					text: text.trim(),
-					footer: global.wm,
+					footer: packname + ' - ' + author,
 					//title: `⎔───「 ${packname} 」───⎔`,
 					buttonText: `SUB MENU 🎫`,
 					sections
