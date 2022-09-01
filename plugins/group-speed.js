@@ -1,4 +1,5 @@
 import { cpus as _cpus, totalmem, freemem } from 'os'
+import os from 'os'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
 
@@ -58,6 +59,7 @@ let handler = async (m, { conn }) => {
 Kecepatan Respon ${speed.toFixed(4)} detik
 
 Runtime :\n*${runtime(process.uptime())}*
+OS Uptime :\n*${runtime(os.uptime())}*
 
 💬 Status :
 - *${groupsIn.length < groups.length ? groups.length : groupsIn.length}* Group Chats
@@ -75,5 +77,5 @@ RAM: ${format(totalmem() - freemem())} / ${format(totalmem())}
 handler.menugroup = ['ping']
 handler.tagsgroup = ['group']
 
-handler.command = /^(ping|tes|test|info|ingfo|runtime)$/i
+handler.command = /^(p(i|o)ng|tes|test|info|ingfo|runtime)$/i
 export default handler

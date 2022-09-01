@@ -4,7 +4,7 @@
 //const cooldown = 86400000 // 1 hari
 //const cooldown = 2592000000 // 1 bulan
 
-const cooldown = 1800000
+const cooldown = 4500000
 const cooldownn = 120000
 
 function ranNumb(min = null, max = null) {
@@ -17,9 +17,10 @@ function ranNumb(min = null, max = null) {
 	}
 }
 
+const need = 100
+
 let handler = async (m, { conn, usedPrefix, command, text }) => {
 	let user = global.db.data.users[m.sender]
-	const need = 100
 	if (new Date - user.lastberkebon <= cooldown) return m.reply(`Kamu sudah ${command}, tunggu beberapa saat untuk dapat ${command} lagi.\n\nSisa Waktu : 🕖 *${((user.lastberkebon + cooldown) - new Date()).toTimeString()}*`)
 	if (user.pickaxe == 0) return m.reply(`Perlu *${usedPrefix}craft* pickaxe terlebih dahulu.\n\nAnda memiliki :\n━ ⛏️ ${user.pickaxe} PickAxe`)
 	let ran = [{"buah": 0}, {"buah": 0}, {"buah": 0}, {"buah": 0}, {"buah": 0}]

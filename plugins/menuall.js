@@ -1,6 +1,7 @@
 import { promises } from 'fs'
 import { join } from 'path'
 import fs from 'fs'
+import os from 'os'
 
 function ranNumb(min, max = null) {
 	if (max !== null) {
@@ -16,6 +17,19 @@ function padLead(num, size) {
 	var s = num+"";
 	while (s.length < size) s = "0" + s;
 	return s;
+}
+
+function runtime(seconds) {
+	seconds = Number(seconds);
+	var d = Math.floor(seconds / (3600 * 24));
+	var h = Math.floor(seconds % (3600 * 24) / 3600);
+	var m = Math.floor(seconds % 3600 / 60);
+	var s = Math.floor(seconds % 60);
+	var dDisplay = d > 0 ? d + "d " : "";
+	var hDisplay = h < 10 ? "0" + h + ":" : h > 0 ? h + ":" : "";
+	var mDisplay = m < 10 ? "0" + m + ":" : m > 0 ? m + ":" : "";
+	var sDisplay = s < 10 ? "0" + s : s > 0 ? s : "";
+	return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
 let tags = {
@@ -36,7 +50,8 @@ const defaultMenu = {
 ║⧐ ⸨ *.info* ⸩
 ║⧐ ⸨ *.levelup* ⸩
 ╠═════════════════❍
-║⧐ 📈 Uptime: *%uptime*
+║⧐ 📈 Runtime: *%uptime*
+║⧐ 📈 OS Uptime: *%osuptime*
 ╚═════════════════════
 
 ╭───「 *PROFILMU* 」
@@ -55,17 +70,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let { limit, role } = global.db.data.users[m.sender]
 		let name = await conn.getName(m.sender)
-		let _uptime = process.uptime() * 1000
-		let _muptime
-		if (process.send) {
-			process.send('uptime')
-			_muptime = await new Promise(resolve => {
-				process.once('message', resolve)
-				setTimeout(resolve, 1000)
-			}) * 1000
-		}
-		let muptime = clockString(_muptime)
-		let uptime = clockString(_uptime)
+		let uptime = runtime(process.uptime())
+		let osuptime = runtime(os.uptime())
 		let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {
 				help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
@@ -104,7 +110,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 		let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
 		let replace = {
 			'%': '%',
-			p: _p, uptime, muptime,
+			p: _p, uptime, osuptime,
 			me: conn.getName(conn.user.jid),
 			github: _package.homepage ? _package.homepage.url || _package.homepage : '[unknown github url]',
 			limit, name, role,
