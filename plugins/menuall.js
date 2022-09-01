@@ -50,8 +50,8 @@ const defaultMenu = {
 ║⧐ ⸨ *.info* ⸩
 ║⧐ ⸨ *.levelup* ⸩
 ╠═════════════════❍
-║⧐ 📈 Runtime: *%uptime*
-║⧐ 📈 OS Uptime: *%osuptime*
+║⧐ 📈 Runtime : *%uptime*
+║⧐ 📈 OS Uptime : *%osuptime*
 ╚═════════════════════
 
 ╭───「 *PROFILMU* 」
