@@ -15,7 +15,7 @@ This Script is for everyone, original base by [`BochilGaming`](https://github.co
       <img src="https://i.ibb.co/DR4vjVN/nother.jpg" width="55%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
 
-Download Node Modules here : [`node_modules`](https://cutt.ly/azamibot-md-modules)
+If you want to add Node Modules manually, download here : [`node_modules`](https://cutt.ly/azamibot-md-modules)
 
 This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](https://github.com/adiwajshing/baileys)
 
@@ -23,8 +23,8 @@ This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](h
 [![Grup WhatsApp](https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://cutt.ly/azamilaifuu)
 **MAX BOT : 4**
 
-#### Deploy to Heroku (Error)
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/clicknetcafe/azamibot-md)
+#### - Suport deploy to Heroku (Thx to Ibeng)
+#### - Can work with Railway (Thx to Ibeng)
 
 #### Heroku Buildpack
 | BuildPack | LINK |
