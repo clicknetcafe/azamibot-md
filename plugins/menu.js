@@ -46,11 +46,8 @@ const defaultMenu = {
 ⦿ 📊 Database : %totalreg User
 ⦿ 📈 Runtime : *%uptime*
 
-#OS CPU : %oscpu#
-#OS Speed : %osspeed#
-#OS Arch : %osarch - %oscore Core#
 #OS Version : %osversion#
-#OS Release : %osrelease#
+#OS Arch : %osarch | %oscore Core | %osspeed#
 #OS Uptime : %osuptime#
 
 _Claim *.daily* atau mainkan game di *.funmenu* untuk mendapatkan exp / money_
@@ -68,7 +65,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
 		let { exp, money, limit, level, role } = global.db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)
-		let name = await conn.getName(m.sender)
+		let name = await conn.getName(m.sender).replaceAll('\n','')
 		let uptime = runtime(process.uptime()).trim()
 		let osarch = os.arch()
 		let oscpu = os.cpus().slice(0,1).map(v => v.model.split('@')[0].replace(' CPU','').replace('Intel(R) ','').trim())

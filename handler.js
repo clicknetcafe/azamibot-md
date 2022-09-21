@@ -4,14 +4,14 @@ import { fileURLToPath } from 'url'
 import path, { join } from 'path'
 import { unwatchFile, watchFile } from 'fs'
 import chalk from 'chalk'
+import fetch from 'node-fetch'
 
 //Prems
-global.prems = ['6282151652728','6285714216711','6282187352115','6285803583481','6288215689772','6285651062576'] // Premium user has unlimited limit
+global.prems = ['6282151652728','6282187352115','6285803583481','6288215689772','6285651062576','6285755126561','6285706669472','6281249859138'] // Premium user has unlimited limit
 
 // Sticker WM
 global.packname = 'Azami x Byoru'
 global.author = 'Bot V5'
-global.menfessid = []
 
 //apikey
 global.api = '1431kalakuan5195'	// https://api.lolhuman.xyz/docs 1431kalakuan5195
@@ -1030,7 +1030,22 @@ export async function participantsUpdate({ id, participants, action }) {
 				for (let user of participants) {
 					let pp = './src/avatar_contact.png'
 					try {
-						pp = await this.profilePictureUrl(user, 'image')
+						try {
+							let bufpp
+							try {
+								bufpp = await this.profilePictureUrl(user, 'image')
+							} catch {
+								bufpp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
+							}
+							let bufppgc = await this.profilePictureUrl(id, 'image')
+							let uname = await this.getName(user)
+							let gname = await this.getName(id)
+							let lurl = await fetch(`https://api.lolhuman.xyz/api/base/${action === 'add' ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname ? encodeURIComponent(uname) : '-'}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
+							pp = Buffer.from(await lurl.arrayBuffer())
+							if (Buffer.byteLength(pp) < 22000) throw new e()
+						} catch (e) {
+							pp = await this.profilePictureUrl(user, 'image')
+						}
 					} catch (e) {
 					} finally {
 						text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
