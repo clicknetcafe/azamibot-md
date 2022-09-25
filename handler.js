@@ -5,10 +5,11 @@ import path, { join } from 'path'
 import { unwatchFile, watchFile } from 'fs'
 import chalk from 'chalk'
 import fetch from 'node-fetch'
-import can from 'knights-canvas'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 //Prems
-global.prems = ['6282151652728','6282187352115','6285803583481','6288215689772','6285651062576','6285755126561','6285706669472','6281249859138'] // Premium user has unlimited limit
+global.prems = ['6282151652728','6282187352115','6285803583481','6288215689772','6285651062576','6285755126561','6285706669472','6281249859138','6285714216711'] // Premium user has unlimited limit
 
 // Sticker WM
 global.packname = 'Azami x Byoru'
@@ -658,6 +659,8 @@ export async function handler(chatUpdate) {
 					chat.delete = true
 				if (!('antiLink' in chat))
 					chat.antiLink = false
+				if (!('antivirus' in chat))
+					chat.antivirus = false
 				if (!('nsfw' in chat))
 					chat.nsfw = false
 				if (!('pdf' in chat))
@@ -683,6 +686,7 @@ export async function handler(chatUpdate) {
 					sDemote: '',
 					delete: true,
 					antiLink: false,
+					antivirus: false,
 					nsfw: false,
 					pdf: false,
 					game: true,
@@ -1042,6 +1046,7 @@ export async function participantsUpdate({ id, participants, action }) {
 							uname = await this.getName(user)
 							gname = await this.getName(id)
 							try {
+								const can = require('knights-canvas')
 								if (action === 'add') {
 									image = await new can.Welcome().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
 								} else {
