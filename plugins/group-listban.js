@@ -8,7 +8,7 @@ let handler = async (m, { conn, isOwner }) => {
 		if (global.db.data.chats[groups[i].id].isBanned) {
 			listgc.push(groups[i].id)
 			txt += `├ *[${z + 1}]* ${await conn.getName(groups[i].id)}\n`
-			txt += `├ ┗⊱ id : ${groups[i].id}\n`
+			txt += `├ ┗⊱ ${groups[i].id}\n`
 			z += 1
 		}
 	}
@@ -16,7 +16,7 @@ let handler = async (m, { conn, isOwner }) => {
 		if (!listgc.includes(chats[x][0])) {
 			listgc.push(chats[x][0])
 			txt += `├ *[${z + 1}]* Unknown ( Bot Leave )\n`
-			txt += `├ ┗⊱ id : ${chats[x][0]}\n`
+			txt += `├ ┗⊱ ${chats[x][0]}\n`
 			z += 1
 		}
 	}
