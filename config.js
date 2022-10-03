@@ -9,7 +9,6 @@ global.owner = [
 	// [number, dia creator/owner?, dia developer?]
 ] // Put your number here
 global.mods = [] // Want some help?
-//global.prems = ['628233725566','6285782540704'] // Premium user has unlimited limit
 global.APIs = { // API Prefix
 	// name: 'https://website'
 	nrtm: 'https://nurutomo.herokuapp.com',
@@ -30,14 +29,6 @@ global.APIKeys = { // APIKey Here
 	'https://leyscoders-api.herokuapp.com': 'dappakntlll',
 	'https://api.lolhuman.xyz': 'apikeylu'
 }
-
-/*// Sticker WM
-global.packname = 'Azami x Byoru'
-global.author = 'Bot V5'
-
-//apikey
-global.api = 'bukanitucuy14315195'
-global.imgbb = '4fe0927d28af0d5ca44d6d9c0516bee5'*/
 
 global.multiplier = 69 // The higher, The harder levelup
 
