@@ -91,6 +91,8 @@ export async function handler(chatUpdate) {
 
 				if (!isNumber(user.money))
 					user.money = 0
+				if (!isNumber(user.atm))
+					user.atm = 0
 				if (!isNumber(user.health))
 					user.health = 100
 				if (!isNumber(user.potion))
@@ -466,6 +468,7 @@ export async function handler(chatUpdate) {
 					autolevelup: true,
 
 					money: 0,
+					atm: 0,
 					health: 100,
 					potion: 10,
 					trash: 0,
@@ -1026,7 +1029,7 @@ export async function handler(chatUpdate) {
 			console.log(m, m.quoted, e)
 		}
 		if (opts['autoread'])
-			await this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
+			await this.readMessages([m.key]).catch(() => { })
 	}
 }
 
@@ -1148,7 +1151,7 @@ global.dfail = (type, m, conn) => {
 		rowner: `*「OWNERR BOT ONLY」*`,
 		owner: `*「OWNER BOT ONLY」*`,
 		mods: `*「MODERATOR ONLY」*`,
-		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\nhttps://cutt.ly/azamilaifu\n\nOtherwise type this : *.privatecmd*`,
+		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\nhttps://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs\n\nOtherwise type this : *.privatecmd*`,
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
 		admin: `*「ADMIN GROUP ONLY」*`,
