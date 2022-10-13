@@ -102,6 +102,34 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			chat.antivirus = isEnable
 			break
+		case 'simi':
+		case 'simsimi':
+			if (chat.simi && isEnable) throw `[!] Mode simi masih aktif Kak!`
+			if (chat.lastsimi && isEnable) throw `[!] Durasi simi masih cooldown!`
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.simi = isEnable
+			if (isEnable) {
+				chat.lastsimi = isEnable
+				setTimeout(() => {
+					chat.simi = !isEnable
+					chat.lastsimi = !isEnable
+				}, 299000)
+				setTimeout(() => {
+					chat.simi = !isEnable
+					chat.lastsimi = !isEnable
+					conn.sendMessage(m.chat, { text: `Simi *OFF* Kak` }, { quoted: fkontak })
+				}, 300000)
+			}
+			break
 		case 'public':
 			isAll = true
 			if (!isROwner) {
@@ -169,7 +197,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | simsimi | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*
@@ -178,7 +206,7 @@ Example :
 			throw false
 	}
 	await conn.sendMessage(m.chat, { text: `
-*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}
+*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}${(type.includes('simi') && isEnable) ? '\n\nAuto OFF dalam *5 menit* ( menghindari spam )' : ''}
 `.trim() }, { quoted: fkontak })
 }
 
