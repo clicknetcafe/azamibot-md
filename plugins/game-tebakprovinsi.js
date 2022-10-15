@@ -27,7 +27,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 ⭔ Bonus: ${poin} Exp
 `.trim()
     conn.tebakprovinsi[id] = [
-        await conn.sendFile(m.chat, json.result.img, 'tebakprovinsi.jpg', caption, m),
+        await conn.sendMessage(m.chat, { image: { url: json.result.img }, caption: caption }, { quoted: m }),
         json, poin,
         setTimeout(() => {
             if (conn.tebakprovinsi[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.title}*`, packname + ' - ' + author, ['tebakprovinsi', `${usedPrefix}tebakprovinsi`], conn.tebakprovinsi[id][0])
