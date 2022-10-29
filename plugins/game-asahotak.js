@@ -1,7 +1,7 @@
 import { asahotak } from '@bochilteam/scraper'
 
 let timeout = 120000
-let poin = 4999
+let poin = 1999
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
     let chat = global.db.data.chats[m.chat]
     if (chat.game == false && m.isGroup) return

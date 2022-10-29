@@ -1,5 +1,5 @@
 import { family100 } from '@bochilteam/scraper'
-const winScore = 4999
+const winScore = 1499
 
 async function handler(m, { conn, usedPrefix, isPrems }) {
     let chat = global.db.data.chats[m.chat]

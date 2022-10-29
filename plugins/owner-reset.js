@@ -20,7 +20,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	if (item.toLowerCase().includesOneOf(['exp','money','limit','potion','emerald','diamond','gold'])) {
 		let user = global.db.data.users
 		let ini_txt = `List users :\n\n`
-		for (let x of Object.keys(chat)) {
+		for (let x of Object.keys(user)) {
 			try {
 				user[x][item] = parseInt(args[1])
 				if (item == 'exp') user[x].level = 0

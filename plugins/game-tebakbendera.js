@@ -1,4 +1,4 @@
-import { tebakbendera } from '@bochilteam/scraper'
+import fetch from 'node-fetch'
 
 let timeout = 120000
 let poin = 1999
@@ -18,7 +18,9 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
     } else {
 
     }
-    const json = await tebakbendera()
+    let res = await fetch(`https://botcahx.ddns.net/api/game/tembakbendera`)
+    if (!res.ok) throw 'Fitur Error!'
+    let json = await res.json()
     let caption = `
 🎮 *Tebak Bendera* 🎮
 
@@ -26,14 +28,14 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 ⭔ Bonus: ${poin} Exp
 `.trim()
     conn.tebakbendera[id] = [
-        await conn.sendMessage(m.chat, { image: { url: json.img }, caption: caption }, { quoted: m }),
+        await conn.sendMessage(m.chat, { image: { url: json.result.img }, caption: caption }, { quoted: m }),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakbendera[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.name}*`, packname + ' - ' + author, ['tebakbendera', `${usedPrefix}tebakbendera`], conn.tebakbendera[id][0])
+            if (conn.tebakbendera[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.name}*`, packname + ' - ' + author, ['tebakbendera', `${usedPrefix}tebakbendera`], conn.tebakbendera[id][0])
             delete conn.tebakbendera[id]
         }, timeout)
     ]
-    console.log(json.name)
+    console.log(json.result.name)
 }
 
 handler.menufun = ['tebakbendera (exp+)']
