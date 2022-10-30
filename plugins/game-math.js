@@ -1,6 +1,6 @@
 let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
     let chat = global.db.data.chats[m.chat]
-    if (chat.game == false && m.isGroup) return
+    if (!chat.game && m.isGroup) return
     if (global.db.data.users[m.sender].limit < 1 && global.db.data.users[m.sender].money > 50000 && !isPrems) {
         throw `Beli limit dulu lah, duid lu banyak kan 😏`
     } else if (global.db.data.users[m.sender].limit > 0 && !isPrems) {
