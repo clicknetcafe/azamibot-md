@@ -177,6 +177,7 @@ plugins/textpro-2.js
 plugins/tool-dashboard.js
 
 # data-data
+eng.traineddata
 session.data.json
 database.json
 package-lock.json

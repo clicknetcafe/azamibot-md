@@ -80,12 +80,12 @@ export async function handler(chatUpdate) {
 					user.afkReason = ''
 				if (!('banned' in user))
 					user.banned = false
+				if (!('permaban' in user))
+					user.permaban = false
 				if (!isNumber(user.lastbanned))
 					user.lastbanned = 0
 				if (!isNumber(user.bannedcd))
 					user.bannedcd = 0
-				if (!isNumber(user.money))
-					user.money = 0
 				if (!isNumber(user.warn))
 					user.warn = 0
 				if (!isNumber(user.level))
@@ -468,6 +468,9 @@ export async function handler(chatUpdate) {
 					afk: -1,
 					afkReason: '',
 					banned: false,
+					permaban: false,
+					lastbanned: 0,
+					bannedcd: 0,
 					warn: 0,
 					level: 0,
 					role: 'Beginner',
@@ -667,6 +670,8 @@ export async function handler(chatUpdate) {
 			if (chat) {
 				if (!('isBanned' in chat))
 					chat.isBanned = false
+				if (!('permaBan' in chat))
+					chat.permaBan = false
 				if (!('welcome' in chat))
 					chat.welcome = false
 				if (!('detect' in chat))
@@ -708,6 +713,7 @@ export async function handler(chatUpdate) {
 			} else
 				global.db.data.chats[m.chat] = {
 					isBanned: false,
+					permaBan: false,
 					welcome: false,
 					detect: false,
 					sWelcome: '',
