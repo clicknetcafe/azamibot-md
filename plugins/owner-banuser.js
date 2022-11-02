@@ -1,11 +1,12 @@
-let handler = async (m, { conn, text }) => {
+let handler = async (m, { conn }) => {
     let who
     if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0]
     else who = m.chat
     if (!who) throw 'Tag salah satu lah'
     try {
-        let users = global.db.data.users
-        users[who].banned = true
+        let user = global.db.data.users[who]
+        if (user.bannedcd != 0) return conn.sendMessage(m.chat, { text: `[!] Tidak dapat unban @${(who || '').replace(/@s\.whatsapp\.net/g, '')} karena sudah di *silent*`, mentions: [who] }, { quoted: m })
+        user.banned = true
         conn.reply(m.chat, `berhasil banned`, m)
     } catch (e) {
         console.log(e)

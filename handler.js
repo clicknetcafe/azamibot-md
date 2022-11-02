@@ -80,6 +80,12 @@ export async function handler(chatUpdate) {
 					user.afkReason = ''
 				if (!('banned' in user))
 					user.banned = false
+				if (!isNumber(user.lastbanned))
+					user.lastbanned = 0
+				if (!isNumber(user.bannedcd))
+					user.bannedcd = 0
+				if (!isNumber(user.money))
+					user.money = 0
 				if (!isNumber(user.warn))
 					user.warn = 0
 				if (!isNumber(user.level))
@@ -697,6 +703,8 @@ export async function handler(chatUpdate) {
 					chat.expired = 0
 				if (!isNumber(chat.lastmute))
 					chat.lastmute = 0
+				if (!isNumber(chat.mutecd))
+					chat.mutecd = 0
 			} else
 				global.db.data.chats[m.chat] = {
 					isBanned: false,
@@ -718,6 +726,7 @@ export async function handler(chatUpdate) {
 					antiToxic: true,
 					expired: 0,
 					lastmute: 0,
+					mutecd: 0,
 				}
 			let settings = global.db.data.settings[this.user.jid]
 			if (typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}
