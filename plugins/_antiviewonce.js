@@ -1,9 +1,7 @@
 export async function before(m) {
 	if (m.isBaileys && m.fromMe) return !0
-	if (!m.isGroup) return !1
-	if ((m.hydratedMessage || m.buttons || m.hydratedFourRowTemplate) !== undefined) return !0
 	if (m.isCommand) return !0
-	if (m.mtype == 'templateMessage') return !0
+	if (!m.isGroup) return !1
 	if (m.message) {
 		let chat = global.db.data.chats[m.chat]
 		if (chat.viewonce && m.message.viewOnceMessage) {
