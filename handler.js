@@ -8,9 +8,6 @@ import fetch from 'node-fetch'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-//Prems
-global.prems = ['6282151652728','6282187352115','6285803583481','6288215689772','6285651062576','6285755126561','6285706669472','6281249859138','6285714216711'] // Premium user has unlimited limit
-
 // Sticker WM
 global.packname = 'Azami x Byoru'
 global.author = 'Bot V5'
@@ -456,6 +453,8 @@ export async function handler(chatUpdate) {
 					user.tambanglvl = 0
 				if (!isNumber(user.pelabuhanlvl))
 					user.pelabuhanlvl = 0
+				if (!isNumber(user.expired))
+					user.expired = 0
 			} else
 				global.db.data.users[m.sender] = {
 					exp: 0,
@@ -663,6 +662,7 @@ export async function handler(chatUpdate) {
 					pabriklvl: 0,
 					tambanglvl: 0,
 					pelabuhanlvl: 0,
+					expired: 0,
 				}
 			let chat = global.db.data.chats[m.chat]
 			if (typeof chat !== 'object')
@@ -704,6 +704,10 @@ export async function handler(chatUpdate) {
 					chat.viewonce = false
 				if (!('antiToxic' in chat))
 					chat.antiToxic = false
+				if (!isNumber(chat.joindate))
+					chat.joindate = 0
+				if (!isNumber(chat.joincd))
+					chat.joincd = 0
 				if (!isNumber(chat.expired))
 					chat.expired = 0
 				if (!isNumber(chat.lastmute))
@@ -730,6 +734,8 @@ export async function handler(chatUpdate) {
 					lastsimi: false,
 					viewonce: false,
 					antiToxic: true,
+					joindate: 0,
+					joincd: 0,
 					expired: 0,
 					lastmute: 0,
 					mutecd: 0,
@@ -747,6 +753,10 @@ export async function handler(chatUpdate) {
 				restrict: false,
 				menfess: []
 			}
+			let prems = global.db.data.prems
+			if (!Array.isArray(prems)) global.db.data.prems = [{user: '', date: 0}]
+			let owner = global.db.data.owner
+			if (!Array.isArray(owner)) global.db.data.owner = [['zzz']]
 		} catch (e) {
 			console.error(e)
 		}
@@ -764,9 +774,9 @@ export async function handler(chatUpdate) {
 			m.text = ''
 
 		const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe
+		const isOwner = isROwner || m.fromMe || global.db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isPrems = isROwner || global.db.data.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['queque'] && m.text && !(isMods || isPrems)) {
 			let queque = this.msgqueque, time = 1000 * 5
