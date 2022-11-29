@@ -81,6 +81,6 @@ RAM: ${format(totalmem() - freemem())} / ${format(totalmem())}
 
 handler.menugroup = ['ping']
 handler.tagsgroup = ['group']
-
 handler.command = /^(p(i|o)ng|tes|test|info|ingfo|runtime)$/i
+
 export default handler

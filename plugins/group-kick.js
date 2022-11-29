@@ -1,6 +1,7 @@
 import { areJidsSameUser } from '@adiwajshing/baileys'
 
 let handler = async (m, { conn, text, args, participants }) => {
+    if (global.db.data.settings[this.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
     if (m.quoted) {
         if (m.quoted.sender === conn.user.jid) throw `yahaha`
         let usr = m.quoted.sender;
@@ -24,7 +25,7 @@ handler.menugroup = ['kick']
 handler.tagsgroup = ['group']
 handler.command = /^(kick|tendang)$/i
 
-handler.owner = true
+handler.admin = true
 handler.botAdmin = true
 handler.group = true
 

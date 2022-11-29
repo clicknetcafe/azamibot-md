@@ -782,8 +782,8 @@ export async function handler(chatUpdate) {
 
 		const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isOwner = isROwner || m.fromMe || global.db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isPrems = isROwner || global.db.data.prems.map(v => v.user).includes(m.sender)
+		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isPrems = isOwner || global.db.data.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['queque'] && m.text && !(isMods || isPrems)) {
 			let queque = this.msgqueque, time = 1000 * 5
@@ -1188,7 +1188,7 @@ global.dfail = (type, m, conn) => {
 	let msg = {
 		rowner: `*「OWNERR BOT ONLY」*`,
 		owner: `*「OWNER BOT ONLY」*`,
-		mods: `*「MODERATOR ONLY」*`,
+		mods: `*「DEV / MODS ONLY」*`,
 		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\nhttps://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs\n\nOtherwise type this : *.privatecmd*`,
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
