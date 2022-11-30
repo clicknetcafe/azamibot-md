@@ -768,9 +768,9 @@ export async function handler(chatUpdate) {
 			console.error(e)
 		}
 
-		const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe || global.db.data.store.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isROwner = isMods || [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isOwner = isROwner || m.fromMe || global.db.data.store.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isPrems = isOwner || global.db.data.store.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['nyimak'])
