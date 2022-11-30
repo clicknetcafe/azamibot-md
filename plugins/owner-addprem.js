@@ -6,7 +6,7 @@ let handler = async (m, { conn, args }) => {
 	else who = m.quoted ? m.quoted.sender : m.chat ? m.chat : ''
 	if (!who) return m.reply(`tag orangnya!`)
 	let user = global.db.data.users
-	let prems = global.db.data.prems
+	let prems = global.db.data.store.prems
 	who = who.replace(/\D/g,'') + '@s.whatsapp.net'
 	if (!user[who]) return m.reply(`[!] User tidak ada dalam database.`)
 	if (prems.map(v => v.user).includes(who)) return m.reply(`*[ ! ] Dia sudah Premium.*`)
