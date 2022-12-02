@@ -751,27 +751,22 @@ export async function handler(chatUpdate) {
 				autoread: false,
 				restrict: false
 			}
+			let prems = global.db.data.prems
+			if (!Array.isArray(prems)) global.db.data.prems = [{user: '', date: 0}]
+			let owner = global.db.data.owner
+			if (!Array.isArray(owner)) global.db.data.owner = [['zzz']]
 			let store = global.db.data.store
-			if (typeof store !== 'object') global.db.data.store = {}
-			if (store) {
-				if (!Array.isArray(store.prems)) store.prems = [{user: '', date: 0}]
-				if (!Array.isArray(store.owner)) store.owner = [['zzz']]
-				if (!Array.isArray(store.store)) store.store = []
-				if (!Array.isArray(store.menfess)) store.menfess = []
-			} else global.db.data.store = {
-				prems: [{user: '', date: 0}],
-				owner: [['zzz']],
-				store: [],
-				menfess: []
-			}
+			if (!Array.isArray(store)) global.db.data.store = []
+			let menfess = global.db.data.menfess
+			if (!Array.isArray(menfess)) global.db.data.menfess = []
 		} catch (e) {
 			console.error(e)
 		}
 
 		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isROwner = isMods || [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe || global.db.data.store.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isPrems = isOwner || global.db.data.store.prems.map(v => v.user).includes(m.sender)
+		const isOwner = isROwner || m.fromMe || global.db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isPrems = isOwner || global.db.data.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['nyimak'])
 			return
