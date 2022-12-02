@@ -1,22 +1,7 @@
+import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { promises } from 'fs'
 import { join } from 'path'
 import fs from 'fs'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
 
 let tagstextpro = {
 	'offi': 'textpro.me Official',
@@ -92,6 +77,3 @@ handler.tags = ['submenu']
 handler.command = /^(textprom(enu)?|m(enu)?textpro)$/i
 
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)

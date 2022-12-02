@@ -1,3 +1,5 @@
+import { isNumber } from '../lib/others.js'
+
 let handler = async (m, { command, usedPrefix, args }) => {
 	let user = global.db.data.users[m.sender]
 	let info = `Format : *${usedPrefix + command} [item] [jumlah]*\n`
@@ -106,9 +108,3 @@ handler.command = /^(craft(ing)?)$/i
 handler.premium = true
 
 export default handler
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

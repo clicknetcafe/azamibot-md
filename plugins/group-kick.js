@@ -1,4 +1,5 @@
 import { areJidsSameUser } from '@adiwajshing/baileys'
+import { delay } from '../lib/others.js'
 
 let handler = async (m, { conn, text, args, participants }) => {
     if (global.db.data.settings[this.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
@@ -30,5 +31,3 @@ handler.botAdmin = true
 handler.group = true
 
 export default handler
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

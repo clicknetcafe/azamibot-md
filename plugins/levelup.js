@@ -2,23 +2,8 @@ import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { levelup } from '../lib/canvas.js'
 import can from 'knights-canvas'
 import uploadImage from '../lib/uploadImage.js'
+import { ranNumb, padLead } from '../lib/others.js'
 import fs from 'fs'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
 
 let handler = async (m, { conn }) => {
 	let user = global.db.data.users[m.sender]

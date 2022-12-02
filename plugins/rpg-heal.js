@@ -1,3 +1,5 @@
+import { isNumber } from '../lib/others.js'
+
 let handler = async (m, { args, usedPrefix }) => {
     let user = global.db.data.users[m.sender]
     if (user.health >= 100) return m.reply(`
@@ -21,9 +23,3 @@ handler.tagsfun = ['rpg']
 handler.command = /^(heal)$/i
 
 export default handler
-
-function isNumber(number) {
-    if (!number) return number
-    number = parseInt(number)
-    return typeof number == 'number' && !isNaN(number)
-}

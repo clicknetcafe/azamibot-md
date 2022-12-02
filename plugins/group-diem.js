@@ -1,3 +1,5 @@
+import { isNumber } from '../lib/others.js'
+
 const cooldown = 60000
 
 String.prototype.includesOneOf = function(arrayOfStrings) {
@@ -49,9 +51,3 @@ handler.command = /^(di(e|a)m|silent)$/i
 handler.group = true
 
 export default handler
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

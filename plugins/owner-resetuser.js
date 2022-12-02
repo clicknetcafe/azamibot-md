@@ -1,3 +1,5 @@
+import { isNumber } from '../lib/others.js'
+
 String.prototype.includesOneOf = function(arrayOfStrings) {
 	if(!Array.isArray(arrayOfStrings)) {
 	throw new Error('includesOneOf only accepts an array')
@@ -39,9 +41,3 @@ handler.command = /^((re)?setuser)$/i
 handler.owner = true
 
 export default handler
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

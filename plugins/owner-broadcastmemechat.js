@@ -1,14 +1,5 @@
+import { delay, ranNumb, readMore } from '../lib/others.js'
 import { randomBytes } from 'crypto'
-
-function ranNumb(min = null, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && !jid.startsWith('212') && chat.isChats).map(v => v[0])
@@ -41,9 +32,3 @@ handler.command = /^((broadcast|bc)memechats?)$/i
 handler.owner = true
 
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-
-const randomID = length => randomBytes(Math.ceil(length * .5)).toString('hex').slice(0, length)
-const delay = time => new Promise(res => setTimeout(res, time))
