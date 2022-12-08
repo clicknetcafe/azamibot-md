@@ -746,10 +746,12 @@ export async function handler(chatUpdate) {
 				if (!('self' in settings)) settings.self = false
 				if (!('autoread' in settings)) settings.autoread = false
 				if (!('restrict' in settings)) settings.restrict = false
+				if (!('linkgc' in settings)) settings.linkgc = ''
 			} else global.db.data.settings[this.user.jid] = {
 				self: false,
 				autoread: false,
-				restrict: false
+				restrict: false,
+				linkgc: ''
 			}
 			let prems = global.db.data.prems
 			if (!Array.isArray(prems)) global.db.data.prems = [{user: '', date: 0}]
@@ -774,7 +776,7 @@ export async function handler(chatUpdate) {
 			return
 		if (opts['pconly'] && m.chat.endsWith('g.us'))
 			return
-		if (opts['gconly'] && !m.chat.endsWith('g.us'))
+		if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems)
 			return
 		if (opts['swonly'] && m.chat !== 'status@broadcast')
 			return
@@ -1167,14 +1169,8 @@ export async function deleteUpdate(message) {
 		let chat = global.db.data.chats[msg.chat] || {}
 		if (chat.delete)
 			return
-		await this.reply(msg.chat, `
-Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
-Untuk mematikan fitur ini, ketik
-*.enable delete*
-`.trim(), msg, {
-			mentions: [participant]
-		})
-		this.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
+		await this.reply(msg.chat, `Terdeteksi @${participant.split`@`[0]} telah menghapus pesan\nUntuk mematikan fitur ini, ketik\n*.off antidelete*`, msg, { mentions: [participant] })
+		await this.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
 	} catch (e) {
 		console.error(e)
 	}
@@ -1185,7 +1181,7 @@ global.dfail = (type, m, conn) => {
 		rowner: `*「OWNERR BOT ONLY」*`,
 		owner: `*「OWNER BOT ONLY」*`,
 		mods: `*「DEV / MODS ONLY」*`,
-		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\nhttps://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs\n\nOtherwise type this : *.privatecmd*`,
+		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\n${global.db.data.settings[conn.user.jid].linkgc || 'https://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs'}\n\nOtherwise type this : *.privatecmd*`,
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
 		admin: `*「ADMIN GROUP ONLY」*`,
