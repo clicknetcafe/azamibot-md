@@ -21,8 +21,8 @@ let handler = async (m, { conn, text, isOwner }) => {
 	}
 }
 
-handler.menugroup = ['join <chat.whatsapp.com>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['join <chat.whatsapp.com>']
+handler.tagsowner = ['owner']
 handler.command = /^(join)$/i
 
 handler.owner = true

@@ -34,8 +34,8 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	}
 }
 
-handler.mengroup = ['setuser <data>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['setuser <data>']
+handler.tagsowner = ['owner']
 handler.command = /^((re)?setuser)$/i
 
 handler.owner = true

@@ -24,6 +24,6 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
 	}
 }
 
-handler.command = /^(welcome|nsfw|game|antilink)$/i
+handler.command = /^(welcome|nsfw|game|antilink|antivirus)$/i
 
 export default handler

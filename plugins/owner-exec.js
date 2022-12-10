@@ -38,8 +38,8 @@ let handler = async (m, _2) => {
 	}
 }
 
-handler.menugroup = ['> ', '=> ']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['> ', '=> ']
+handler.tagsowner = ['mods']
 handler.customPrefix = /^=?> /
 handler.command = /(?:)/i
 

@@ -6,17 +6,17 @@ let handler = async (m, { conn, args }) => {
 	else who = m.quoted ? m.quoted.sender : args[0] ? args[0] : m.chat ? m.chat : ''
 	if (!who) return m.reply(`tag orangnya!`)
 	let user = global.db.data.users
-	let prems = global.db.data.prems
+	let prems = global.db.data.datas.prems
 	who = who.replace(/\D/g,'') + '@s.whatsapp.net'
 	if (!user[who]) return m.reply(`[!] User tidak ada dalam database.`)
 	if (!prems.map(v => v.user).includes(who)) return m.reply(`[ ! ] User tidak ada dalam list premium.`)
-	global.db.data.prems = prems.filter(v => v.user !== who)
+	global.db.data.datas.prems = prems.filter(v => v.user !== who)
 	user[who].expired = null
 	await conn.sendMessage(m.chat, { text: `Menghapus @${(who || '').replace(/@s\.whatsapp\.net/g, '')} dari list user premium.`, mentions: [who] }, { quoted: m })
 }
 
-handler.mengroup = ['delprem <@tag>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['delprem <@tag>']
+handler.tagsowner = ['owner']
 handler.command = /^(del(ete)?prem(ium)?)$/i
 
 handler.owner = true

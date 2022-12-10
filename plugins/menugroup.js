@@ -4,8 +4,7 @@ import { join } from 'path'
 import fs from 'fs'
 
 let tagsgroup = {
-	'group': 'Some Admin Privilages',
-	'owner': '*Owner Bot Only*',
+	'group': '*Some Admin Privilages*'
 }
 const defaultMenu = {
 	before: `
