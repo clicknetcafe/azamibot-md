@@ -3,18 +3,9 @@
 //const cooldown = 3600000 // 1 jam
 //const cooldown = 86400000 // 1 hari
 //const cooldown = 2592000000 // 1 bulan
+import { ranNumb } from '../lib/others.js'
 
 const cooldown = 900000
-
-function ranNumb(min = null, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
 
 let handler = async (m, { usedPrefix, command }) => {
 	let user = global.db.data.users[m.sender]
