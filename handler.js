@@ -1,4 +1,5 @@
 import { smsg } from './lib/simple.js'
+import { someincludes } from './lib/others.js'
 import { format } from 'util'
 import { fileURLToPath } from 'url'
 import path, { join } from 'path'
@@ -7,10 +8,6 @@ import chalk from 'chalk'
 import fetch from 'node-fetch'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-
-// Sticker WM
-global.packname = '-'
-global.author = '-'
 
 //apikey
 global.api = 'apikeylu'		// https://api.lolhuman.xyz/docs apikeylu
@@ -1009,6 +1006,7 @@ export async function handler(chatUpdate) {
 					console.error(e)
 					if (e) {
 						let text = format(e)
+						if (someincludes(['packname','author','ftroli','fkontak','fvn','fvid','ftextt','fliveLoc','fliveLoc2','ftoko','fdocs','fgif','ftrol'].map(v => v + ' is not defined'), text)) text = `「❗」 _Please Wait. . ._\n_Loading plugin _allfake.js . . ._`
 						for (let key of Object.values(global.APIKeys))
 							text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
 						if (e.name)
