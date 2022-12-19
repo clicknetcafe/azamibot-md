@@ -1,6 +1,6 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `[ ! ] Input teks.`
-	if (text = 'default') text = ''
+	if (text == 'default') text = ''
 	global.db.data.datas.teksjadibot = text
 	await m.reply(`Berhasil *${command} :*\n\n${text}`)
 }
