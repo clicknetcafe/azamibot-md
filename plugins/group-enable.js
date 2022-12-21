@@ -5,6 +5,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 	let isEnable = /true|enable|(turn)?on|1/i.test(command)
 	let chat = global.db.data.chats[m.chat]
 	let user = global.db.data.users[m.sender]
+	let datas = global.db.data.datas
 	let bot = global.db.data.settings[conn.user.jid] || {}
 	let type = (args[0] || '').toLowerCase()
 	let isAll = false, isUser = false
@@ -143,6 +144,29 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 				}, 300000)
 			}
 			break
+		case 'openai':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.openai = isEnable
+			break
+		case 'openaipc':
+		case 'openaipm':
+		case 'openaiprivat':
+		case 'openaiprivate':
+			if (!isROwner) {
+				global.dfail('rowner', m, conn)
+				throw false
+			}
+			datas.openaipc = isEnable
+			break
 		case 'public':
 			isAll = true
 			if (!isROwner) {
@@ -210,7 +234,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | antiviewonce | simsimi | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | antiviewonce | simsimi | openai | openaipc | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*
