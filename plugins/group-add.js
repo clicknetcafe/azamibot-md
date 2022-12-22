@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
  */
 const { getBinaryNodeChild, getBinaryNodeChildren } = (await import('@adiwajshing/baileys')).default
 let handler = async (m, { conn, text, participants }) => {
-	if (global.db.data.settings[this.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
+	if (global.db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
 	if (!text) throw `Yang mau di add siapa ? Jin ya ?`
 	try {
 		let _participants = participants.map(user => user.id)
