@@ -43,7 +43,6 @@
 		"@arugaz/ai2d": "^1.0.1-z.8",
 		"@bochilteam/scraper": "^4.0.22-alpha.0",
 		"@shineiichijo/nhentai-ts": "^1.0.0",
-		"@upscalerjs/esrgan-thick": "^1.0.0-beta.10",
 		"@vitalets/google-translate-api": "^9.0.0",
 		"@xct007/tiktok-scraper": "^0.0.2",
 		"awesome-phonenumber": "^4.4.0",
