@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { promises } from 'fs'
 import { join } from 'path'
-import fs from 'fs'
+import got from 'got'
 
 let tagsnsfw = {
 	'search': '🚀 *SEARCH*',
@@ -21,12 +21,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let chat = db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)
-		let nais
-		if (m.isGroup && !chat.nsfw) {
-			nais = fs.readFileSync(`./media/picbot/nsfw/nsfwoff.jpg`)
-		} else {
-			nais = fs.readFileSync(`./media/picbot/nsfw/nsfw_${meh}.jpg`)
-		}
+		let nais = (m.isGroup && !chat.nsfw) ? 'https://i.ibb.co/0QfCNxj/nsfwoff.jpg' : await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/nsfw.json').json().then(v => v.getRandom())
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menunsfw = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {

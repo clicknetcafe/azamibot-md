@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import { readMore, ranNumb, padLead, runtimes } from '../lib/others.js'
 import { promises } from 'fs'
 import { join } from 'path'
-import fs from 'fs'
+import got from 'got'
 import os from 'os'
 
 let tags = {
@@ -39,7 +39,7 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 	try {
 		let meh = padLead(ranNumb(43), 3)
-		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
+		let nais = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let { limit, role } = db.data.users[m.sender]
 		let name = await conn.getName(m.sender).replaceAll('\n','')
