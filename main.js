@@ -53,7 +53,39 @@ const connectionOptions = {
 	// logger: pino({ level: 'trace' })
 }
 
-global.conn = makeWASocket(connectionOptions)
+//global.conn = makeWASocket(connectionOptions)
+global.conn = makeWASocket({
+	...connectionOptions,
+	patchMessageBeforeSending: (message) => {
+		const requiresMobileStructuralPatch = Boolean(message?.buttonsMessage || message?.templateMessage || message?.listMessage)
+
+		if (message?.templateMessage) {
+			message.templateMessage.hydratedFourRowTemplate = lodash.cloneDeep(message.templateMessage.hydratedTemplate)
+			delete message.templateMessage.fourRowTemplate
+		}
+
+		if (message?.deviceSentMessage?.message?.templateMessage) {
+			message.deviceSentMessage.message.templateMessage.hydratedFourRowTemplate = lodash.cloneDeep(message.deviceSentMessage.message.templateMessage.hydratedTemplate)
+			delete message.deviceSentMessage.message.templateMessage.fourRowTemplate
+		}
+
+		if (requiresMobileStructuralPatch) {
+			message = {
+				viewOnceMessage: {
+					message: {
+						messageContextInfo: {
+							deviceListMetadataVersion: 2,
+							deviceListMetadata: {}
+						},
+						...message
+					}
+				}
+			}
+		}
+
+		return message
+	}
+})
 conn.isInit = false
 
 if (!opts['test']) {
