@@ -56,34 +56,29 @@ const connectionOptions = {
 //global.conn = makeWASocket(connectionOptions)
 global.conn = makeWASocket({
 	...connectionOptions,
+	generateHighQualityLinkPreview: true, // menambah kualitas thumbnail preview
+	// patch dibawah untuk tambahan jika hydrate/list tidak bekerja
 	patchMessageBeforeSending: (message) => {
-		const requiresMobileStructuralPatch = Boolean(message?.buttonsMessage || message?.templateMessage || message?.listMessage)
-
-		if (message?.templateMessage) {
-			message.templateMessage.hydratedFourRowTemplate = lodash.cloneDeep(message.templateMessage.hydratedTemplate)
-			delete message.templateMessage.fourRowTemplate
-		}
-
-		if (message?.deviceSentMessage?.message?.templateMessage) {
-			message.deviceSentMessage.message.templateMessage.hydratedFourRowTemplate = lodash.cloneDeep(message.deviceSentMessage.message.templateMessage.hydratedTemplate)
-			delete message.deviceSentMessage.message.templateMessage.fourRowTemplate
-		}
-
-		if (requiresMobileStructuralPatch) {
+		const requiresPatch = !!(
+			message.buttonsMessage 
+			|| message.templateMessage
+			|| message.listMessage
+		);
+		if (requiresPatch) {
 			message = {
 				viewOnceMessage: {
 					message: {
 						messageContextInfo: {
 							deviceListMetadataVersion: 2,
-							deviceListMetadata: {}
+							deviceListMetadata: {},
 						},
-						...message
-					}
-				}
-			}
+						...message,
+					},
+				},
+			};
 		}
 
-		return message
+		return message;
 	}
 })
 conn.isInit = false
