@@ -6,7 +6,7 @@ let handler = async (m) => {
 	for (let x of all) {
 		let cmd = Object.values(plugins).filter(v => v[x] && !v.disabled).map(v => v[x]).flat().length
 		count += cmd
-		txt += `\n*⭔ ${x == 'help' ? 'Main Menu' : x} :* ${cmd} fitur`
+		txt += `\n*⭔ ${x.replace('help', 'Main Menu')} :* ${cmd} fitur`
 	}
 	txt += `\n\n*Total Fitur : ${count} Commands*`
 	await m.reply(txt.replace(/menu/g, ''))
