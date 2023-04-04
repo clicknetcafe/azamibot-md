@@ -49,6 +49,7 @@ const { state, saveState } = store.useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {
 	printQRInTerminal: true,
+	syncFullHistory: false,
 	auth: state,
 	// logger: pino({ level: 'trace' })
 }
